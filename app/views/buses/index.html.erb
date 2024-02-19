@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+<%= form_tag(buses_path, method: :get) do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by name or route" %>
+  <%= submit_tag "Search" %>
+<% end %>
+<h1>Buses</h1>
+
+<div id="buses">
+<% if @buses.present? %>
+
+  <% @buses.each do |bus| %>
+  
+    <%= render bus %>
+   
+    
+  <% end %>
+  <% else %>
+  <p>No buses available</p>
+<% end %>
+  
+</div>
+

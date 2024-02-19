@@ -1,0 +1,23 @@
+<div id="<%= dom_id bus %>">
+  <p>
+    <strong>Name:</strong>
+    <%= bus.name %>
+  </p>
+
+  <p>
+    <strong>Route:</strong>
+    <%= bus.route %>
+  </p>
+  <div>
+   
+  <p>Total Seats: <%= bus.seats %></p>
+  <p>Available Seats: <%= @available_seats[bus.id] %></p>
+ 
+</div>
+
+  <div class="align-right">
+
+Created By: <%= bus.user.email %><br>
+Created At: <%= bus.created_at %>
+<hr>
+</div>

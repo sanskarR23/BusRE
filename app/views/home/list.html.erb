@@ -1,0 +1,26 @@
+<%link_to "List", home_list_path %>
+<%= form_tag(buses_path, method: :get) do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by name or route" %>
+  <%= submit_tag "Search" %>
+<% end %>
+<br>
+<% if @buses.present? %>
+  <% @buses.each do |bus| %>
+    <div>
+      <strong>Name:</strong> <%= bus.name %><br>
+      <strong>Registration no:</strong> <%= bus.registration_no %><br>
+      <strong>No of Seats:</strong> <%= bus.seats %><br>
+      <strong>Route:</strong> <%= bus.route %>
+      <div class="align-right">
+        Created By: <%= bus.user.email %><br>
+        Created At: <%= bus.created_at %>
+      </div>
+      <%= link_to "Show this bus",bus_path(bus) %> <br>
+      <%= link_to "Edit Bus", edit_bus_path(bus) %>
+      <hr>
+    </div>
+  <% end %>
+<% else %>
+  <p>No buses available</p>
+<% end %>
+<%= link_to "Add Bus",new_bus_path %>

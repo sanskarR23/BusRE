@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  bus: one
+  date: 2024-02-05
+  seats_booked: 1
+
+two:
+  user: two
+  bus: two
+  date: 2024-02-05
+  seats_booked: 1
