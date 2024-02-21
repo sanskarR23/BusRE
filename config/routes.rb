@@ -12,9 +12,7 @@ Rails.application.routes.draw do
     resources :reservations, only: [:index, :destroy]
     get 'reservations_for_date', on: :member
   end
-  
-  end
-
+.
   resources :reservations, only: [:index, :destroy]
 
   namespace :bus_owner do
