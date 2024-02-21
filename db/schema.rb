@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_14_100829) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_21_143132) do
   create_table "bus_owners", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name"
@@ -38,10 +38,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_100829) do
     t.integer "seats_booked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "seats"
     t.date "reservation_date"
+    t.text "seats"
     t.index ["bus_id"], name: "index_reservations_on_bus_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "bus_id", null: false
+    t.index ["bus_id"], name: "index_seats_on_bus_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,4 +67,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_100829) do
   add_foreign_key "buses", "users"
   add_foreign_key "reservations", "buses"
   add_foreign_key "reservations", "users"
+  add_foreign_key "seats", "buses"
 end

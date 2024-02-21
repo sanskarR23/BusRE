@@ -1,9 +1,8 @@
 class Bus < ApplicationRecord
-    belongs_to :user
-    has_many :reservations
+  belongs_to :user
+  has_many :reservations, dependent: :destroy
 
-  def self.search(query)
-    where("name LIKE ? OR route LIKE ?", "%#{query}%", "%#{query}%")
-  end
+def self.search(query)
+  where("name LIKE ? OR route LIKE ?", "%#{query}%", "%#{query}%")
 end
-
+end

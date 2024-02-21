@@ -21,9 +21,8 @@ class BusesController < ApplicationController
     @reservation = Reservation.new
   end
 
-
-
   def create_reservation
+    binding.pry
     @bus = Bus.find(params[:id])
     @date = params[:date]
     @reservations = @bus.reservations.where(reservation_date: @date)
@@ -115,5 +114,3 @@ class BusesController < ApplicationController
       params.require(:bus).permit(:name, :registration_no, :route, :seats, :user_id)
     end
 end
-
-

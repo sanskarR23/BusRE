@@ -5,4 +5,4 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :buses         
   has_many :reservations
-  end
+end

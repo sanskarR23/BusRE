@@ -2,17 +2,15 @@ Rails.application.routes.draw do
   devise_for :users
   
   root to: "home#index"
+  resources :reservations
   
   resources :buses do
     member do
       post 'create_reservation'
       get 'search'
+      get 'reservations_for_date'
     end
     resources :reservations, only: [:create, :destroy]
-    resources :reservations, only: [:index, :destroy]
-    get 'reservations_for_date', on: :member
-  end
-  
   end
 
   resources :reservations, only: [:index, :destroy]
@@ -25,4 +23,3 @@ Rails.application.routes.draw do
 
   get '/lists', to: 'home#list', as: 'home_list'
 end
-

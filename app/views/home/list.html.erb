@@ -1,5 +1,5 @@
 <%link_to "List", home_list_path %>
-<%= form_tag(buses_path, method: :get) do %>
+<%= form_tag(buses_path ,method: :get) do %>
   <%= text_field_tag :search, params[:search], placeholder: "Search by name or route" %>
   <%= submit_tag "Search" %>
 <% end %>
