@@ -1,18 +1,27 @@
-
 <% if user_signed_in? %>
-<br>
-<%= link_to  'List of Buses',home_list_path %>
-<br>
-<%= link_to "Reservations", reservations_path %>
-<br>
-<%= link_to 'Sign Out', destroy_user_session_path %>
-<% else %>
-<%= link_to  'Buses',buses_path %>
-<br>
-
-  <%= link_to 'Sign In',new_user_session_path %>
+  <br>
+     <%= link_to 'List of Buses', home_list_path %>
+  <br>
+     <%= link_to 'Reservations', reservations_path %>
+  <br>
+     <%= link_to 'Sign Out', destroy_user_session_path %>
   
+  <% if current_user.owner? %>
+    <br>
+      <%= link_to 'Add Bus', new_bus_path %>
+    <br>
+      <%= link_to 'Edit Bus', edit_bus_path %>
+    <br>
+      <%= link_to 'List of Buses', home_list_path %>
+    <br>
+      <%= link_to 'Reservations', reservations_path %>
+    <br>
+      <%= link_to 'Sign Out', destroy_user_session_path %>
+  
+  <% end %>
+
+<% else %>
+  <%= link_to 'Buses', buses_path %>
+  <br>
+  <%= link_to 'Sign In', new_user_session_path %>
 <% end %>
-
-
-

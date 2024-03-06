@@ -17,7 +17,7 @@ class BusesTest < ApplicationSystemTestCase
     fill_in "Name", with: @bus.name
     fill_in "Registration no", with: @bus.registration_no
     fill_in "Route", with: @bus.route
-    fill_in "Seats", with: @bus.seats
+    fill_in "Seats", with: @bus.number_of_seats
     fill_in "User", with: @bus.user_id
     click_on "Create Bus"
 
@@ -32,7 +32,7 @@ class BusesTest < ApplicationSystemTestCase
     fill_in "Name", with: @bus.name
     fill_in "Registration no", with: @bus.registration_no
     fill_in "Route", with: @bus.route
-    fill_in "Seats", with: @bus.seats
+    fill_in "Seats", with: @bus.number_of_seats
     fill_in "User", with: @bus.user_id
     click_on "Update Bus"
 

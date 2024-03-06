@@ -5,22 +5,19 @@ Rails.application.routes.draw do
   
   resources :buses do
     member do
-      post 'create_reservation'
       get 'search'
     end
-    resources :reservations, only: [:create, :destroy]
-    resources :reservations, only: [:index, :destroy]
     get 'reservations_for_date', on: :member
   end
-.
-  resources :reservations, only: [:index, :destroy]
+  resources :reservations
+  
 
   namespace :bus_owner do
     resources :buses, only: [:index, :show] do
       resources :reservations, only: [:index]
     end
   end
-
+  resources :reservations, only: [:index, :destroy]
   get '/lists', to: 'home#list', as: 'home_list'
 end
 

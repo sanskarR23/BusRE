@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     def list
         if user_signed_in?
             @buses = Bus.all
-          specific_user_id = current_user.id 
+            @buses = @buses.search(params[:search]) if params[:search].present?
           
         else
         end

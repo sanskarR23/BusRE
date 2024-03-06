@@ -8,16 +8,14 @@
     <strong>Route:</strong>
     <%= bus.route %>
   </p>
+
   <div>
-   
-  <p>Total Seats: <%= bus.seats %></p>
-  <p>Available Seats: <%= @available_seats[bus.id] %></p>
- 
+     <p>Total Seats: <%= bus.number_of_seats %></p>
+     <p>Available Seats: <%= bus.list_of_available_seats %></p>
+  </div>
+
+<div class="align-right">
+  Created At: <%= bus.created_at %>
+  <hr>
 </div>
 
-  <div class="align-right">
-
-Created By: <%= bus.user.email %><br>
-Created At: <%= bus.created_at %>
-<hr>
-</div>

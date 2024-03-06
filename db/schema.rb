@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_25_125601) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_06_132735) do
   create_table "bus_owners", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name"
@@ -24,21 +24,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_125601) do
     t.string "name"
     t.string "registration_no"
     t.string "route"
-    t.integer "seats"
-    t.integer "user_id", null: false
+    t.integer "number_of_seats"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_buses_on_user_id"
   end
 
   create_table "reservations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "bus_id", null: false
-    t.integer "seats_booked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "reservation_date"
-    t.integer "seats"
+    t.text "seats", default: ""
+    t.integer "number_of_seats"
     t.index ["bus_id"], name: "index_reservations_on_bus_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
@@ -51,12 +49,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_125601) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "bus_owners", "users"
-  add_foreign_key "buses", "users"
   add_foreign_key "reservations", "buses"
   add_foreign_key "reservations", "users"
 end

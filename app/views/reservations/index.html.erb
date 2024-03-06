@@ -1,21 +1,22 @@
 <h1> Reservations</h1>
-<% if @reservations.present? %>
+
+<% if @reservations.any? %>
   <ul>
-    <% @reservations.each do |reservation| %>
+    <% @reservations.each do |reservation|  %>
       <li>
-      Reservation by: <%= reservation.bus.name %><br>
+      Reservation on: <%= reservation.bus.name %><br>
       Reservation by: <%= reservation.user.email %><br>
       Reserved seats: <%= reservation.seats %><br>
       Reservation date: <%= reservation.reservation_date %><br>      
-      <%= link_to "Cancel Reservation", bus_reservation_path(reservation.bus.id, reservation.id), data: {
-        turbo_method: :delete,
-        turbo_confirm: "Are you sure?"
-      } %>
+     
+      <%= link_to "Cancel Reservation", 
+      reservation_path(reservation), method: :delete, 
+      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
       <hr>
-    
       </li>
     <% end %>
   </ul>
+  
 <% else %>
   <p>No reservations available</p>
 <% end %>

@@ -1,0 +1,27 @@
+<%= form_for @reservation, path: reservations_path(bus_id: @bus),
+       method: :post, id: "reservation-form" do |f| %>
+
+  <!-- Number of Seats -->
+  <div>
+      <%= f.label :number_of_seats, "Number of Seats" %>
+      <%= f.number_field :number_of_seats, min: 1, max: @bus.number_of_seats %>
+  </div>
+
+  <div>
+      <%= f.label :seats, "Allocated Seat"  %>
+      <%= f.text_field :seats, multiple: true %>
+  </div>
+
+  <!-- Reservation Date -->
+  <div>
+      <%= f.label :reservation_date, "Reservation Date" %>
+      <%= f.date_field :reservation_date, placeholder: "dd-mm-yyyy", min: Date.today, max: "2024-12-31", id: "reservation_date_input" %>
+  </div>
+
+  
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :bus_id, value: @bus.id %>
+
+  <!-- Submit Button -->
+  <%= f.submit "Book Seats" %>
+<% end %>

@@ -1,78 +1,70 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_bus, only: [:index, :destroy, :reservations_for_date]
-  before_action :set_reservation, only: [:destroy]
-
+  before_action :set_reservation, only: [:show, :edit, :destroy]
+  
   def index
-     @reservations = current_user.reservations   
+    owners = User.where(role: :owner)
+    users = User.where(role: :user)
+
+    @reservations = current_user.reservations   
+    @reservation_date = Date.today 
+  end
+
+  def new
+    @bus = Bus.find(params[:bus_id])
+    @reservation = Reservation.new
   end
 
   def create
-    @bus = Bus.find(params[:bus_id])
-    @date = params[:reservation][:reservation_date]
-    @reservations = @bus.reservations.where(reservation_date: @reservation_date)
-    #  column should be renamed - seats -> number_of_seats
-    # @available_seats = @bus.seats - @reservations.sum(:seats)
-    @available_seats = 45
-
     # Create a new reservation
+    user = User.new(user_params)
+    user.role = :owner
+    user.save
+
     @reservation = Reservation.new(reservation_params)
-    @reservation.user = current_user
-    @reservation.bus = @bus
-    
-    if @reservation.save
-      flash[:success] = "Seats booked successfully!"
-      redirect_to bus_path(@bus, date: @date)
-    else
-      render :show
+    seats_string = params[:reservation][:seats].first
+    seats = seats_string.split(',').map(&:to_i)
+    @reservation.seats = seats
+
+    respond_to do |format|
+      if @reservation.save
+        format.html { redirect_to reservations_path, notice: "Reservation was successfully created." }
+        format.json { render :index, status: :created }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+      end
     end
+    redirect_to reservations_path, notice: 'Reservation created successfully'
   end
-
-  # def create
-  #   binding.pry
-  #   @bus = Bus.find(params[:bus_id])
-    
-  #   # Extracting seats and reservation_date from params
-  #   seats = params[:reservation][:seats].to_i
-  #   reservation_date = params[:reservation][:reservation_date]
-
-  #   # Create reservation
-  #   #  reservation_date = Date.strptime(params[:reservation][:reservation_date], '%d-%m-%Y')
-
-  #   @reservation = Reservation.new(seats: seats, reservation_date: reservation_date, bus: @bus)
-
-
-    
-  #   if @reservation.save
-  #     # Successfully created reservation
-  #     redirect_to @bus, notice: 'Seats booked successfully.'
-  #   else
-  #     # Handle validation errors or other issues
-  #     render 'new'
-  #   end
-  # end
-
   def destroy
+
     if @reservation
       @reservation.destroy
       redirect_to reservations_path, notice: "Reservation canceled successfully!"
     else
       redirect_to reservations_path, alert: "Reservation not found."
     end
+    
   end
-  
+
   private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :password)
+  end
 
   def set_bus
     @bus = Bus.find_by(id: params[:bus_id])    
   end
 
   def reservation_params
-    params.require(:reservation).permit(:seats, :reservation_date)
+    params.require(:reservation).permit(:seats, :reservation_date, :user_id, :bus_id, :number_of_seats)
   end
 
   def set_reservation
     @reservation = current_user.reservations.find_by(id: params[:id])
   end
+
 end
 

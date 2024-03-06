@@ -10,7 +10,3 @@ class CreateReservations < ActiveRecord::Migration[7.1]
     end
   end
 end
-
-
-#rails generate migration AddSeatsToReservations seats:integer
-#rails generate migration AddSeatsToReservations seats:integer
