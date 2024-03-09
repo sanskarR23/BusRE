@@ -16,11 +16,6 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    # Create a new reservation
-    user = User.new(user_params)
-    user.role = :owner
-    user.save
-
     @reservation = Reservation.new(reservation_params)
     seats_string = params[:reservation][:seats].first
     seats = seats_string.split(',').map(&:to_i)
@@ -29,16 +24,13 @@ class ReservationsController < ApplicationController
     respond_to do |format|
       if @reservation.save
         format.html { redirect_to reservations_path, notice: "Reservation was successfully created." }
-        format.json { render :index, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
-    redirect_to reservations_path, notice: 'Reservation created successfully'
   end
-  def destroy
 
+  def destroy
     if @reservation
       @reservation.destroy
       redirect_to reservations_path, notice: "Reservation canceled successfully!"
@@ -65,6 +57,5 @@ class ReservationsController < ApplicationController
   def set_reservation
     @reservation = current_user.reservations.find_by(id: params[:id])
   end
-
 end
 
