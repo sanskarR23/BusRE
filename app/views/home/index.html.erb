@@ -1,27 +1,19 @@
-<% if user_signed_in? %>
-  <br>
-     <%= link_to 'List of Buses', home_list_path %>
-  <br>
-     <%= link_to 'Reservations', reservations_path %>
-  <br>
-     <%= link_to 'Sign Out', destroy_user_session_path %>
-  
-  <% if current_user.owner? %>
+<div class="container mt-4 text-center">
+  <% if user_signed_in? %>
     <br>
-      <%= link_to 'Add Bus', new_bus_path %>
+    <%= link_to 'List of Buses', home_list_path, class: 'btn btn-primary mb-2' %>
     <br>
-      <%= link_to 'Edit Bus', edit_bus_path %>
+    <%= link_to 'Reservations', reservations_path, class: 'btn btn-primary mb-2' %>
     <br>
-      <%= link_to 'List of Buses', home_list_path %>
+    <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-danger mb-2' %>
+    
+    <% if current_user.admin? %>
+      <br>
+      <%= link_to 'Add Bus', new_bus_path, class: 'btn btn-success mb-2' %>
+    <% end %>
+  <% else %>
+    <%= link_to 'Buses', buses_path, class: 'btn btn-primary mb-2' %>
     <br>
-      <%= link_to 'Reservations', reservations_path %>
-    <br>
-      <%= link_to 'Sign Out', destroy_user_session_path %>
-  
+    <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-primary mb-2' %>
   <% end %>
-
-<% else %>
-  <%= link_to 'Buses', buses_path %>
-  <br>
-  <%= link_to 'Sign In', new_user_session_path %>
-<% end %>
+</div>

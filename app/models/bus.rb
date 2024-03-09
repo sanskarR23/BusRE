@@ -4,7 +4,8 @@ class Bus < ApplicationRecord
   validates :name, :registration_no, :route, :number_of_seats, presence: true
  
   def list_of_available_seats
-    (1..number_of_seats).to_a - reservations.pluck(:seats).flatten.uniq
+    reservations.group_by(&:reservation_date)
+    #  (1..number_of_seats).to_a - reservations.pluck(:seats).flatten.uniq
   end
 
   def self.search(query)

@@ -1,9 +1,12 @@
-<h1>New bus</h1>
+<div class="container mt-4">
+  <h1>New Bus</h1>
 
-<%= render "form", bus: @bus %>
+  <%= render "form", bus: @bus %>
 
-<br>
+  <br>
 
-<div>
-  <%= link_to 'List of Buses', buses_path %>
+  <div class="mt-3">
+    <%= link_to "Back to Buses", buses_path, class: "btn btn-secondary" %> <br>
+    <%= button_to "Destroy this Bus", @bus, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger mt-2" %>
+  </div>
 </div>

@@ -1,14 +1,30 @@
-<h1>Available Seats for <%= @bus.name %></h1>
+<div class="container mt-4">
+  <h1>Available Seats for <%= @bus.name %></h1>
 
-<p>Total Seats: <%= @bus.number_of_seats %></p>
-<p>Reserved Seats: <%= @reservations.pluck(:seats) %></p>
-<p>Available Seats: <%= @bus.list_of_available_seats %></p>
+  <p>Total Seats: <%= @bus.number_of_seats %></p>
 
-<hr>
-<h2>
-  Do reservation for this bus
-  <%= link_to "Click here", new_reservation_path(bus_id: @bus) %>
-</h2>
+  <p>Reserved Seats:
+    <% @reservation_list.each do |date, obj| %>
+      <%= date %>
+      <%= obj.pluck(:seats).flatten.uniq.join(', ') %>
+      </br>
+    <% end %>
+  </p>
 
+  <p>Available Seats: 
+    <% @bus.list_of_available_seats.each do |date, obj| %>
+      <%= date %>
+      (1..@bus.number_of_seats).to_a - obj.pluck(:seats).flatten.uniq.join(', ').split(',').map(&:to_i)
+      </br>
+    <% end %>
+  </p>
+
+  <hr>
+
+  <h2>
+    Do reservation for this bus
+    <%= link_to "Click here", new_reservation_path(bus_id: @bus), class: "btn btn-primary" %>
+  </h2>
+</div>
 
 

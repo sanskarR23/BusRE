@@ -3,16 +3,19 @@ class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show, :edit, :destroy]
   
   def index
-    owners = User.where(role: :owner)
-    users = User.where(role: :user)
-
-    @reservations = current_user.reservations   
-    @reservation_date = Date.today 
+    @reservations = if current_user.admin?
+      Reservation.all
+    else
+      current_user.reservations.where
+    end
+    @reservations = Reservation.where('reservation_date >= ?', Date.today).order(:reservation_date)
   end
 
   def new
     @bus = Bus.find(params[:bus_id])
-    @reservation = Reservation.new
+    @reservation = @bus.reservations.new
+
+    @reservations = current_user.reservations
   end
 
   def create
@@ -41,10 +44,6 @@ class ReservationsController < ApplicationController
   end
 
   private
-
-  def user_params
-    params.require(:user).permit(:name, :email, :password)
-  end
 
   def set_bus
     @bus = Bus.find_by(id: params[:bus_id])    

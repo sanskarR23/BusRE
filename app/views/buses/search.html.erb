@@ -1,18 +1,18 @@
-<h1>Search Results for "<%= @query %>"</h1>
+# <h1>Search Results for "<%= @query %>"</h1>
 
-<% if @results.any? %>
+# <% if @results.any? %>
   
-  <ul>
-    <% @results.each do |bus| %>
-      <li>
-        <%= link_to bus.name, bus_path(bus) %> (Route: <%= bus.route %>)
-      </li>
+#   <ul>
+#     <% @results.each do |bus| %>
+#       <li>
+#         <%= link_to bus.name, bus_path(bus) %> (Route: <%= bus.route %>)
+#       </li>
 
-    <% end %>
-  </ul>
+#     <% end %>
+#   </ul>
   
-<% else %>
-  <p>No results found for "<%= @query %>".</p>
-<% end %>
+# <% else %>
+#   <p>No results found for "<%= @query %>".</p>
+# <% end %>
 
-<%= link_to 'Back to Buses', buses_path %>
+# <%= link_to 'Back to Buses', buses_path %>

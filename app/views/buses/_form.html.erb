@@ -1,37 +1,37 @@
-<%= form_with(model: bus) do |form| %>
+<%= form_with(model: bus, class: 'mt-4') do |form| %>
   <% if bus.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(bus.errors.count, "error") %> prohibited this bus from being saved:</h2>
 
       <ul>
-        <% bus.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% bus.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :registration_no, style: "display: block" %>
-    <%= form.text_field :registration_no %>
+  <div class="mb-3">
+    <%= form.label :registration_no, class: "form-label" %>
+    <%= form.text_field :registration_no, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :route, style: "display: block" %>
-    <%= form.text_field :route %>
+  <div class="mb-3">
+    <%= form.label :route, class: "form-label" %>
+    <%= form.text_field :route, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :number_of_seats, style: "display: block" %>
-    <%= form.number_field :number_of_seats %>
+  <div class="mb-3">
+    <%= form.label :number_of_seats, class: "form-label" %>
+    <%= form.number_field :number_of_seats, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+    <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

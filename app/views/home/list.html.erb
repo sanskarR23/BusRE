@@ -1,31 +1,30 @@
-<%link_to "List", home_list_path %>
+<div class="container mt-4 text-center">
+  <%= link_to "List", home_list_path, class: "btn btn-primary mb-3" %>
 
-<%= form_tag(home_list_path, method: :get) do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search by name or route" %><br>
-  <%= submit_tag "Search" %>
-<% end %>
-<hr>
-
-<% if @buses.present? %>
-
-  <% @buses.each do |bus| %>
-    <div>
-      <strong>Name:</strong> <%= bus.name %><br>
-      <strong>Registration no:</strong> <%= bus.registration_no %><br>
-      <strong>No of Seats:</strong> <%= bus.number_of_seats %><br>
-      <strong>Route:</strong> <%= bus.route %>
-
-      <div class="align-right">
-        Created At: <%= bus.created_at %>
-      </div>
-
-      <%= link_to "Show this bus",bus_path(bus) %> <br>
-      <hr>
-    </div>
+  <%= form_tag(home_list_path, method: :get, class: "mb-3") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search by name or route", class: "form-control" %><br>
+    <%= submit_tag "Search", class: "btn btn-secondary" %>
   <% end %>
 
-<% else %>
-  <p>No buses available</p>
-<% end %>
-<hr>
+  <hr>
 
+  <% if @buses.present? %>
+    <% @buses.each do |bus| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= bus.name %></h5>
+          <p class="card-text"><strong>Registration no:</strong> <%= bus.registration_no %></p>
+          <p class="card-text"><strong>No of Seats:</strong> <%= bus.number_of_seats %></p>
+          <p class="card-text"><strong>Route:</strong> <%= bus.route %></p>
+          <div class="text-end">
+            Created At: <%= bus.created_at %>
+          </div>
+          <%= link_to "Show this bus", bus_path(bus), class: "btn btn-primary mt-2" %> <br>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No buses available</p>
+  <% end %>
+  <hr>
+</div>

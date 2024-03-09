@@ -1,25 +1,24 @@
-<h1> Reservations</h1>
+<div class="container mt-4 text-center">
+  <h1>Reservations</h1>
 
-<% if @reservations.any? %>
-  <ul>
-    <% @reservations.each do |reservation|  %>
-      <li>
-      Reservation on: <%= reservation.bus.name %><br>
-      Reservation by: <%= reservation.user.email %><br>
-      Reserved seats: <%= reservation.seats %><br>
-      Reservation date: <%= reservation.reservation_date %><br>      
-     
-      <%= link_to "Cancel Reservation", 
-      reservation_path(reservation), method: :delete, 
-      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-      <hr>
-      </li>
-    <% end %>
-  </ul>
-  
-<% else %>
-  <p>No reservations available</p>
-<% end %>
+  <% if @reservations.any? %>
+    <ul class="list-group">
+      <% @reservations.each do |reservation| %>
+        <li class="list-group-item">
+          <strong>Reservation on:</strong> <%= reservation.bus.name %><br>
+          <strong>Reservation by:</strong> <%= reservation.user.email %><br>
+          <strong>Reserved seats:</strong> <%= reservation.seats %><br>
+          <strong>Reservation date:</strong> <%= reservation.reservation_date %><br>     
 
-
- 
+          <%= link_to "Cancel Reservation", 
+          reservation_path(reservation), method: :delete, 
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, 
+          class: "btn btn-danger mt-2" %>
+          <hr>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No reservations available</p>
+  <% end %>
+</div>

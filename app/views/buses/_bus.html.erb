@@ -1,21 +1,31 @@
-<div id="<%= dom_id bus %>">
-  <p>
-    <strong>Name:</strong>
-    <%= bus.name %>
-  </p>
+<div id="<%= dom_id bus %>" class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Bus Details</h5>
 
-  <p>
-    <strong>Route:</strong>
-    <%= bus.route %>
-  </p>
+      <p class="card-text">
+        <strong>Name:</strong> <%= bus.name %>
+      </p>
 
-  <div>
-     <p>Total Seats: <%= bus.number_of_seats %></p>
-     <p>Available Seats: <%= bus.list_of_available_seats %></p>
+      <p class="card-text">
+        <strong>Route:</strong> <%= bus.route %>
+      </p>
+
+      <div class="mb-3">
+        <p class="card-text">Total Seats: <%= bus.number_of_seats %></p>
+
+        <p class="card-text">Reserved Seats:
+          <% bus.list_of_available_seats.each do |date, obj| %>
+            <%= date %>
+            <%= obj.pluck(:seats).flatten.uniq.join(', ') %><br>
+          <% end %>
+        </p>
+      </div>
+
+      <div class="text-end">
+        Created At: <%= bus.created_at %>
+      </div>
+      <hr>
+    </div>
   </div>
-
-<div class="align-right">
-  Created At: <%= bus.created_at %>
-  <hr>
 </div>
-

@@ -8,8 +8,9 @@ class BusesController < ApplicationController
 
   def show
     # Retrieve reservations for the given bus on the specified date
-    @reservations = @bus.reservations.where(reservation_date: @reservation_date)
+    @reservation_list = @bus.reservations.group_by(&:reservation_date)
     @reservation = Reservation.new
+    
   end
 
   def new
@@ -17,6 +18,7 @@ class BusesController < ApplicationController
   end
 
   def edit
+    
   end
 
   def create

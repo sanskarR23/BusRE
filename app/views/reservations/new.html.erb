@@ -1,22 +1,23 @@
-<h1>Reservation for bus</h1>
+<div class="container mt-4 text-center">
+  <h1>Reservation for <%= @bus.name %></h1>
 
-<%= render "form", reservation: @reservation %>
+  <%= render "form", reservation: @reservation %>
 
-<br>
+  <br>
+  <h2>Reservations for <%= @bus&.name %></h2>
 
-# <h3>Reservations for <%= @bus.name %> </h3>
-
-#   <% if @reservations.present? %>
-#     <ul>
-#       <% @reservations.each do |reservation| %>
-#         <li>   
-#           Reserved seats: <%= reservation.seats %><br>
-#           Reservation date: <%= reservation.reservation_date %>
-#         </li>
-#       <% end %>
-#     </ul>
-
-#   <% else %>
-#     <p>No reservations for this bus on the selected date.</p>
-#   <% end %>
-
+  <% if @reservations&.any? %>
+    <ul class="list-group">
+      <% @reservations.each do |reservation| %>
+        <li class="list-group-item">
+          <strong>Reservation by:</strong> <%= reservation.user.email %><br>
+          <strong>Reserved seats:</strong> <%= reservation.seats %><br>
+          <strong>Reservation date:</strong> <%= reservation.reservation_date.strftime("%B %e, %Y") %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No reservations for this bus on the selected date.</p>
+  <% end %>
+  
+</div>
